@@ -1,6 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 // Base User class
@@ -12,19 +10,19 @@ private:
 public:
     User(string name, string pass) : username(name), password(pass) {}
 
-    string getUsername() const
+    string getUsername() // getter fxn
     {
         return username;
     }
 
-    void setUsername(const string &name)
-    {
-        username = name;
-    }
-
-    string getPassword() const
+    string getPassword()
     {
         return password;
+    }
+
+    void setUsername(const string &name) // setter fxn
+    {
+        username = name;
     }
 
     void setPassword(const string &pass)
@@ -32,7 +30,7 @@ public:
         password = pass;
     }
 
-    virtual string getRole() const = 0; // Pure virtual function
+    virtual string getRole() = 0; // Pure virtual function for runtime polymorphism
 
     virtual ~User() {}
 };
@@ -43,7 +41,7 @@ class AdminUser : public User
 public:
     AdminUser(string name, string pass) : User(name, pass) {}
 
-    string getRole() const override
+    string getRole()
     {
         return "Admin";
     }
@@ -55,7 +53,7 @@ class RegularUser : public User
 public:
     RegularUser(string name, string pass) : User(name, pass) {}
 
-    string getRole() const override
+    string getRole()
     {
         return "Regular";
     }
@@ -65,9 +63,9 @@ public:
 class UserManager
 {
 private:
-    vector<User *> users; // Use pointers to handle polymorphism
+    vector<User *> users; // Manage objects of User and derived classes
 
-    bool userExists(const string &username) const
+    bool userExists(const string &username)
     {
         for (const auto &user : users)
         {
@@ -111,21 +109,20 @@ public:
         cout << "\t\tUser registered successfully." << endl;
     }
 
-    bool loginUser(const string &name, const string &pass) const
+    void loginUser(const string &name, const string &pass)
     {
         for (const auto &user : users)
         {
             if (user->getUsername() == name && user->getPassword() == pass)
             {
                 cout << "\t\tLogin successfully as " << user->getRole() << "." << endl;
-                return true;
+                return;
             }
         }
         cout << "\t\tInvalid username or password." << endl;
-        return false;
     }
 
-    void showUsers() const
+    void showUsers()
     {
         if (users.empty())
         {
@@ -141,7 +138,7 @@ public:
         }
     }
 
-    void searchUser(const string &username) const
+    void searchUser(const string &username)
     {
         if (users.empty())
         {
