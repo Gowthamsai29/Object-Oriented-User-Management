@@ -32,7 +32,7 @@ public:
 
     virtual string getRole() = 0; // Pure virtual function for runtime polymorphism
 
-    virtual ~User() {}
+    ~User() {}
 };
 
 // Derived class for Admin User
@@ -187,79 +187,67 @@ public:
     }
 };
 
-// Menu class to handle user interface
-class Menu
-{
-private:
-    UserManager userManager;
-
-public:
-    void displayMenu()
-    {
-        int option;
-        char choice;
-
-        do
-        {
-            cout << "\n\n\t\t1. Register User" << endl;
-            cout << "\t\t2. Login" << endl;
-            cout << "\t\t3. Show User List" << endl;
-            cout << "\t\t4. Search User" << endl;
-            cout << "\t\t5. Delete User" << endl;
-            cout << "\t\t6. Exit" << endl;
-            cout << "\t\tEnter Your Choice: ";
-            cin >> option;
-
-            switch (option)
-            {
-            case 1:
-                userManager.registerUser();
-                break;
-            case 2:
-            {
-                string username, password;
-                cout << "\t\tEnter Username: ";
-                cin >> username;
-                cout << "\t\tEnter Password: ";
-                cin >> password;
-                userManager.loginUser(username, password);
-                break;
-            }
-            case 3:
-                userManager.showUsers();
-                break;
-            case 4:
-            {
-                string username;
-                cout << "\t\tEnter Username: ";
-                cin >> username;
-                userManager.searchUser(username);
-                break;
-            }
-            case 5:
-            {
-                string username;
-                cout << "\t\tEnter Username: ";
-                cin >> username;
-                userManager.deleteUser(username);
-                break;
-            }
-            case 6:
-                exit(0);
-            default:
-                cout << "\t\tInvalid choice. Please try again." << endl;
-            }
-
-            cout << "\t\tDo you want to continue? [Y/N]: ";
-            cin >> choice;
-        } while (choice == 'y' || choice == 'Y');
-    }
-};
-
 int main()
 {
     system("cls");
-    Menu menu;
-    menu.displayMenu();
+    UserManager userManager;
+    int option;
+    char choice;
+
+    do
+    {
+        cout << "\n\n\t\t1. Register User" << endl;
+        cout << "\t\t2. Login" << endl;
+        cout << "\t\t3. Show User List" << endl;
+        cout << "\t\t4. Search User" << endl;
+        cout << "\t\t5. Delete User" << endl;
+        cout << "\t\t6. Exit" << endl;
+        cout << "\t\tEnter Your Choice: ";
+        cin >> option;
+
+        switch (option)
+        {
+        case 1:
+            userManager.registerUser();
+            break;
+        case 2:
+        {
+            string username, password;
+            cout << "\t\tEnter Username: ";
+            cin >> username;
+            cout << "\t\tEnter Password: ";
+            cin >> password;
+            userManager.loginUser(username, password);
+            break;
+        }
+        case 3:
+            userManager.showUsers();
+            break;
+        case 4:
+        {
+            string username;
+            cout << "\t\tEnter Username: ";
+            cin >> username;
+            userManager.searchUser(username);
+            break;
+        }
+        case 5:
+        {
+            string username;
+            cout << "\t\tEnter Username: ";
+            cin >> username;
+            userManager.deleteUser(username);
+            break;
+        }
+        case 6:
+            exit(0);
+        default:
+            cout << "\t\tInvalid choice. Please try again." << endl;
+        }
+
+        cout << "\t\tDo you want to continue? [Y/N]: ";
+        cin >> choice;
+    } while (choice == 'y' || choice == 'Y');
+
     return 0;
 }
